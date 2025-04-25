@@ -27,7 +27,7 @@ const ChildCategory = lazy(() => import("./components/ChildCategory"));
 const ClearCache = lazy(() => import("./components/ClearCache"));
 
 const LoadingFallback = () => (
-  <div className="flex flex-col justify-center items-center w-full h-screen bg-[#770504]">
+  <div className="flex flex-col justify-center items-center w-full h-screen bg-white">
     <img 
       src={Logo} 
       alt="Loading..." 
