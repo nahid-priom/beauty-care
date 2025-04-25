@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from 'react-router-dom';
 
 // Custom arrow components
 const NextArrow = ({ onClick }) => (
@@ -29,6 +30,7 @@ const PrevArrow = ({ onClick }) => (
 );
 
 const FeaturedCategories = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -180,8 +182,12 @@ const FeaturedCategories = () => {
         <div className="relative">
           <Slider {...settings}>
             {products.map((product) => (
-              <div key={product.id} className="px-2">
-                <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+              <div 
+              key={product.id} 
+              className="px-2 cursor-pointer"
+              onClick={() => navigate(`/product/${product.id}`)}
+            >
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
                   {/* Product Image */}
                   <div className="relative pt-[100%]"> {/* Aspect ratio box */}
                     <img 

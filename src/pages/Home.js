@@ -25,8 +25,7 @@ const Home = () => {
       <NewArrivals />
       <ClientTestimonialsCarousel/>
      
-      <Subscription/>
-
+     
       <Footer />
     </div>
   );

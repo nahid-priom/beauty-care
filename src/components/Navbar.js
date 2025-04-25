@@ -117,7 +117,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile offers - static rotating version */}
-            <div className="md:hidden text-center">
+            <div className="md:hidden py-1 text-center">
               <div className="animate-fade text-xs">
                 <div>🔥 50% OFF HAIR CARE | FREE SHIPPING $50+ 🔥</div>
                 <div className="hidden">

@@ -56,14 +56,14 @@ const HeroSlider = () => {
   const banners = [banner1, banner2];
 
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto pt-2">
       <Slider {...settings}>
         {banners.map((banner, index) => (
-          <div key={index} className="w-full h-[220px]  sm:h-[400px] lg:h-[500px]">
+          <div key={index} className="w-full h-[190px]  sm:h-[400px] lg:h-[500px]">
             <img 
               src={banner} 
               alt={`Banner ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full pt-2 h-full object-cover"
               loading="lazy"
             />
           </div>

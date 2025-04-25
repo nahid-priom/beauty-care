@@ -73,7 +73,7 @@ const App = () => {
             {/* Dynamic Content Pages */}
             <Route path="/blog/:slug" element={<BlogDetails />} />
             <Route path="/service/:category" element={<Subcategory />} />
-            <Route path="/product/:category/:model" element={<ProductDetails />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
 
             <Route path="/subcategory/:category/:subcategorySlug" element={<ChildCategory />} />
 
