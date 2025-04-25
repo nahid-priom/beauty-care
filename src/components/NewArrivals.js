@@ -28,27 +28,29 @@ const PrevArrow = ({ onClick }) => (
   </button>
 );
 
-const FeaturedCategories = () => {
+const NewArrivals = () => {
   const [products, setProducts] = useState([
     {
       id: 1,
-      name: 'Premium Face Cream',
-      category: 'Skin Care',
-      price: 29.99,
-      discountPrice: 24.99,
-      rating: 4.5,
-      image: 'https://www.byrdie.com/thmb/OehxtSdUYnNauaLpU5GqQ8F7un4=/400x0/filters:no_upscale():max_bytes(150000):strip_icc()/drunk-elephant-marula-oil-11845abc4f2541ba9ef64231fb2d9f27.jpg',
+      name: 'Women\'s Perfume',
+      category: 'Women',
+      price: 45.99,
+      discountPrice: 39.99,
+      rating: 4.6,
+      image: 'https://media.istockphoto.com/id/178132583/photo/perfume-bottle.jpg?s=612x612&w=0&k=20&c=UyEDo1NFgdDnxZuPgxYVpOq3hX7RAlZhwxw1muHAoek=',
       isFavorite: false
+      
     },
     {
       id: 2,
-      name: 'Hair Growth Serum',
-      category: 'Hair Care',
-      price: 34.99,
-      discountPrice: 27.99,
-      rating: 4.2,
-      image: 'https://vader-prod.s3.amazonaws.com/1656077250-13442792-1424913539756896.jpg',
+      name: 'Baby Care Kit',
+      category: 'Baby Care',
+      price: 39.99,
+      discountPrice: 34.99,
+      rating: 4.9,
+      image: 'https://atlas-content-cdn.pixelsquid.com/stock-images/baby-care-set-body-wash-nr11RxE-600.jpg',
       isFavorite: false
+     
     },
     {
       id: 3,
@@ -72,22 +74,22 @@ const FeaturedCategories = () => {
     },
     {
       id: 5,
-      name: 'Baby Care Kit',
-      category: 'Baby Care',
-      price: 39.99,
-      discountPrice: 34.99,
-      rating: 4.9,
-      image: 'https://atlas-content-cdn.pixelsquid.com/stock-images/baby-care-set-body-wash-nr11RxE-600.jpg',
+      name: 'Hair Growth Serum',
+      category: 'Hair Care',
+      price: 34.99,
+      discountPrice: 27.99,
+      rating: 4.2,
+      image: 'https://vader-prod.s3.amazonaws.com/1656077250-13442792-1424913539756896.jpg',
       isFavorite: false
     },
     {
       id: 6,
-      name: 'Women\'s Perfume',
-      category: 'Women',
-      price: 45.99,
-      discountPrice: 39.99,
-      rating: 4.6,
-      image: 'https://media.istockphoto.com/id/178132583/photo/perfume-bottle.jpg?s=612x612&w=0&k=20&c=UyEDo1NFgdDnxZuPgxYVpOq3hX7RAlZhwxw1muHAoek=',
+      name: 'Premium Face Cream',
+      category: 'Skin Care',
+      price: 29.99,
+      discountPrice: 24.99,
+      rating: 4.5,
+      image: 'https://www.byrdie.com/thmb/OehxtSdUYnNauaLpU5GqQ8F7un4=/400x0/filters:no_upscale():max_bytes(150000):strip_icc()/drunk-elephant-marula-oil-11845abc4f2541ba9ef64231fb2d9f27.jpg',
       isFavorite: false
     }
   ]);
@@ -174,7 +176,7 @@ const FeaturedCategories = () => {
   return (
     <section className="py-8 lg:py-12 bg-gray-50">
       <div className="container mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#770504] mb-2 text-center">Featured Categories</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-[#770504] mb-2 text-center">New Arrivals</h2>
         <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 text-center">Discover our premium collection</p>
         
         <div className="relative">
@@ -255,4 +257,4 @@ const FeaturedCategories = () => {
   );
 };
 
-export default FeaturedCategories;
+export default NewArrivals;
