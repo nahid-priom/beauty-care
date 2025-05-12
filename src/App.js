@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
@@ -11,13 +11,21 @@ import "react-toastify/dist/ReactToastify.css";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/Checkout";
 import ProductsPage from "./pages/Products";
+import Home from "./pages/Home";
+import ProductDetails from "./components/ProductDetails"
+import ClearCache from "./components/ClearCache"
+import Preloader from "./components/Preloader"
 
-const Home = lazy(() => import("./pages/Home"));
 
-const ProductDetails = lazy(() => import("./components/ProductDetails"));
 
-const ClearCache = lazy(() => import("./components/ClearCache"));
-const Preloader = lazy(() => import("./components/Preloader"));
+
+
+// const Home = lazy(() => import("./pages/Home"));
+
+// const ProductDetails = lazy(() => import("./components/ProductDetails"));
+
+// const ClearCache = lazy(() => import("./components/ClearCache"));
+// const Preloader = lazy(() => import("./components/Preloader"));
 
 const LoadingFallback = () => (
   <>

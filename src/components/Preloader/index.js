@@ -1,7 +1,7 @@
-import React from "react";
+
 import Logo from "../../assets/logo.png"; 
 
-const LoadingScreen = () => {
+const Preloader = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen bg-[#f8f1f1]">
       {/* Logo with gentle pulse animation */}
@@ -39,4 +39,4 @@ const LoadingScreen = () => {
   );
 };
 
-export default LoadingScreen;
+export default Preloader;

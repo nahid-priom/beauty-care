@@ -1,9 +1,6 @@
-import  { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSlidersH,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSlidersH, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
@@ -12,34 +9,57 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import PRODUCT_CATEGORIES from "../data/products-category";
-import ALL_PRODUCTS from "../data/products";
 import ProductCard from "../components/ProductCard";
 import CategoryFilter from "../components/Filter/CategoryFilter";
 import PriceFilter from "../components/Filter/PriceFilter";
 import RatingFilter from "../components/Filter/RatingFilter";
 import StockFilter from "../components/Filter/StockFilter";
-
-
-
+import { fetchProducts } from '../services/ProductsApi';
 
 const ProductsPage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Get query parameters from URL
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        const transformedProducts = data.map(product => ({
+          id: product.id,
+          name: product.title,
+          category: product.category,
+          slug: product.category.replace(/\s+/g, '-').toLowerCase(),
+          price: product.price,
+          discountPrice: product.price * 0.9,
+          rating: product.rating,
+          image: product.thumbnail,
+          inStock: product.stock > 0,
+        }));
+        setProducts(transformedProducts);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProducts();
+  }, []);
+
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const urlCategoryId = searchParams.get("category");
   const urlSearch = searchParams.get("search");
 
-  // Find the matching category object
   const activeCategory = useMemo(
     () => PRODUCT_CATEGORIES.find((cat) => cat.id === urlCategoryId),
     [urlCategoryId]
   );
 
-  // Initialize filters
   const [filters, setFilters] = useState({
     category: activeCategory ? [activeCategory.title] : [],
     priceRange: "",
@@ -47,39 +67,49 @@ const ProductsPage = () => {
     inStock: false,
   });
 
-  // Update filters when URL changes
-  useEffect(() => {
-    const newActiveCategory = PRODUCT_CATEGORIES.find((cat) => cat.id === urlCategoryId);
-    setFilters((prev) => ({
-      ...prev,
-      category: newActiveCategory ? [newActiveCategory.title] : prev.category,
-    }));
-  }, [urlCategoryId]);
+useEffect(() => {
+  const newActiveCategory = PRODUCT_CATEGORIES.find((cat) => cat.id === urlCategoryId);
+  setFilters((prev) => {
+    if (newActiveCategory?.title !== prev.category[0]) {
+      return {
+        ...prev,
+        category: newActiveCategory ? [newActiveCategory.title] : prev.category,
+      };
+    }
+    return prev;
+  });
+}, [urlCategoryId]);
 
-  // Filter products
-  const filteredProducts = useMemo(() => ALL_PRODUCTS.filter((product) => {
-    if (filters.category.length > 0 && !filters.category.includes(product.category)) {
-      return false;
-    }
-    if (urlSearch && !product.name.toLowerCase().includes(urlSearch.toLowerCase())) {
-      return false;
-    }
-    if (filters.priceRange) {
-      const [min, max] = filters.priceRange.split("-").map(Number);
-      const price = product.discountPrice || product.price;
-      if (price < min || price > max) return false;
-    }
-    if (filters.rating !== null && product.rating < filters.rating) {
-      return false;
-    }
-    if (filters.inStock && !product.inStock) {
-      return false;
-    }
-    return true;
-  }), [filters, urlSearch]);
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      if (filters.category.length > 0 && 
+          !filters.category.some(cat => 
+            cat.toLowerCase() === product.category.toLowerCase()
+          )) {
+        return false;
+      }
+      if (urlSearch && !product.name.toLowerCase().includes(urlSearch.toLowerCase())) {
+        return false;
+      }
+      if (filters.priceRange) {
+        const [min, max] = filters.priceRange.split("-").map(Number);
+        const price = product.discountPrice ?? product.price ?? 0;
+        if (price < min || price > max) return false;
+      }
+      if (filters.rating !== null && product.rating < filters.rating) {
+        return false;
+      }
+      if (filters.inStock && !product.inStock) {
+        return false;
+      }
+      return true;
+    });
+  }, [filters, urlSearch, products]); // Added products to dependencies
 
-  // Get unique categories
-  const categories = useMemo(() => [...new Set(ALL_PRODUCTS.map((product) => product.category))], []);
+  const categories = useMemo(() => 
+    [...new Set(products.map((product) => product.category))], 
+    [products] // Added products to dependencies
+  );
 
   const toggleFilter = (filterType, value) => {
     setFilters((prev) => {
@@ -131,6 +161,35 @@ const ProductsPage = () => {
       draggable: true,
     });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+            <span className="visually-hidden"></span>
+          </div>
+          <p>Loading products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-red-500">
+          <p>Error loading products: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 bg-[#770504] text-white px-4 py-2 rounded"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

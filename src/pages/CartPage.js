@@ -105,7 +105,7 @@ const CartPage = () => {
                 <div className="hidden md:grid grid-cols-12 bg-gray-100 p-4 font-medium text-gray-600">
                   <div className="col-span-5">Product</div>
                   <div className="col-span-2 text-center">Price</div>
-                  <div className="col-span-5 text-center">Quantity</div>
+                  <div className="col-span-3 text-center">Quantity</div>
                   <div className="col-span-2 text-right">Total</div>
                 </div>
 
@@ -151,7 +151,7 @@ const CartPage = () => {
                     </div>
 
                     {/* Quantity */}
-                    <div className="md:col-span-3 flex justify-between md:justify-center items-center">
+                    <div className="md:col-span-2 flex justify-between md:justify-center items-center">
                       <span className="md:hidden text-gray-600">
                         Quantity:
                       </span>

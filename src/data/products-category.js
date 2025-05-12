@@ -1,11 +1,10 @@
 const PRODUCT_CATEGORIES = [
-  { id: "skin-care", title: "Skin Care" },
-  { id: "hair-care", title: "Hair Care" },
-  { id: "men", title: "Men" },
-  { id: "makeup", title: "MakeUp" },
-  { id: "baby-care", title: "Baby Care" },
-  { id: "women", title: "Women" },
-  { id: "brand", title: "Brand" },
+  
+  { id: "fragrances", title: "Fragrances" },
+  { id: "beauty", title: "Beauty" },
+  { id: "groceries", title: "Groceries" },
+  { id: "furniture", title: "Home Decoration" },
+  { id: "smartphones", title: "Smartphones" },
+  { id: "laptops", title: "Laptops" },
 ];
-
 export default PRODUCT_CATEGORIES;

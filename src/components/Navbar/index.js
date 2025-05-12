@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PRODUCT_CATEGORIES from "../../data/products-category";
-import PRODUCTS from "../../data/products";
+
 import DesktopSearch from "./DesktopSearch";
 import TopOffersBar from "./TopOffersBar";
 import Logo from "./NavLogo";
 import NavIcons from "./NavIcons";
 import DesktopCategories from "./DesktopCategories";
 import MobileMenu from "./MobileMenu";
+import { fetchProducts } from "../../services/ProductsApi";
 
 const Navbar = () => {
   const location = useLocation();
@@ -19,6 +20,9 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const [products, setProducts] = useState ([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const {
     items: cartItems,
     totalQuantity,
@@ -29,6 +33,34 @@ const Navbar = () => {
     setHasShadow(window.scrollY > 10);
   }, []);
 
+    useEffect(() => {
+      const getProducts = async () => {
+        try {
+          const data = await fetchProducts();
+          const transformedProducts = data.map(product => ({
+            id: product.id,
+            name: product.title,
+            category: product.category,
+            slug: product.category.replace(/\s+/g, '-').toLowerCase(),
+            price: product.price,
+            discountPrice: product.price * 0.9,
+            rating: product.rating,
+            image: product.thumbnail,
+            inStock: product.stock > 0,
+          }));
+          setProducts(transformedProducts);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      getProducts();
+    }, []);
+
+    
+  
   const updateActiveCategory = useCallback(() => {
     const currentPath = location.pathname.split("/")[1];
     const currentNav = PRODUCT_CATEGORIES.find((nav) => nav.id === currentPath);
@@ -37,7 +69,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (searchQuery.length >= 3) {
-      const results = PRODUCTS.filter((product) =>
+      const results = products.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 5);
       setSearchSuggestions(results);
@@ -72,7 +104,34 @@ const Navbar = () => {
     );
     setIsMenuOpen(false);
   };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 text-red-800 rounded-full" role="status">
+            <span className="visually-hidden"></span>
+          </div>
+          <p>Loading products...</p>
+        </div>
+      </div>
+    );
+  }
 
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-red-500">
+          <p>Error loading products: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 bg-[#770504] text-white px-4 py-2 rounded"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50">
