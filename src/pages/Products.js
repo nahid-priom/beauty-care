@@ -1,8 +1,6 @@
-import { useEffect, useState, useMemo} from "react";
+import { useEffect, useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSlidersH, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
@@ -15,11 +13,13 @@ import PriceFilter from "../components/Filter/PriceFilter";
 import RatingFilter from "../components/Filter/RatingFilter";
 import StockFilter from "../components/Filter/StockFilter";
 import { fetchProducts } from '../services/ProductsApi';
+import ProductsLoading from "../components/Preloader"; 
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortOption, setSortOption] = useState("featured");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -67,21 +67,21 @@ const ProductsPage = () => {
     inStock: false,
   });
 
-useEffect(() => {
-  const newActiveCategory = PRODUCT_CATEGORIES.find((cat) => cat.id === urlCategoryId);
-  setFilters((prev) => {
-    if (newActiveCategory?.title !== prev.category[0]) {
-      return {
-        ...prev,
-        category: newActiveCategory ? [newActiveCategory.title] : prev.category,
-      };
-    }
-    return prev;
-  });
-}, [urlCategoryId]);
+  useEffect(() => {
+    const newActiveCategory = PRODUCT_CATEGORIES.find((cat) => cat.id === urlCategoryId);
+    setFilters((prev) => {
+      if (newActiveCategory?.title !== prev.category[0]) {
+        return {
+          ...prev,
+          category: newActiveCategory ? [newActiveCategory.title] : prev.category,
+        };
+      }
+      return prev;
+    });
+  }, [urlCategoryId]);
 
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    let result = products.filter((product) => {
       if (filters.category.length > 0 && 
           !filters.category.some(cat => 
             cat.toLowerCase() === product.category.toLowerCase()
@@ -104,11 +104,33 @@ useEffect(() => {
       }
       return true;
     });
-  }, [filters, urlSearch, products]); // Added products to dependencies
+
+    // Sorting logic
+    switch(sortOption) {
+      case "price-low-high":
+        result.sort((a, b) => (a.discountPrice ?? a.price) - (b.discountPrice ?? b.price));
+        break;
+      case "price-high-low":
+        result.sort((a, b) => (b.discountPrice ?? b.price) - (a.discountPrice ?? a.price));
+        break;
+      case "rating":
+        result.sort((a, b) => b.rating - a.rating);
+        break;
+      case "newest":
+        // Assuming newer products have higher IDs - adjust as needed
+        result.sort((a, b) => b.id - a.id);
+        break;
+      default: // "featured" or any other option
+        // Keep original order
+        break;
+    }
+
+    return result;
+  }, [filters, urlSearch, products, sortOption]);
 
   const categories = useMemo(() => 
     [...new Set(products.map((product) => product.category))], 
-    [products] // Added products to dependencies
+    [products]
   );
 
   const toggleFilter = (filterType, value) => {
@@ -163,16 +185,7 @@ useEffect(() => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <p>Loading products...</p>
-        </div>
-      </div>
-    );
+    return <ProductsLoading />; // Use your preloader component
   }
 
   if (error) {
@@ -193,8 +206,7 @@ useEffect(() => {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen overflow-hidden bg-gray-50">
+      <div className="min-h-screen overflow-hidden pt-12 lg:pt-20 bg-gray-50">
         {/* Mobile filter toggle */}
         <div className="lg:hidden bg-white shadow-sm pt-8 py-3 px-4">
           <button
@@ -253,13 +265,15 @@ useEffect(() => {
                   </label>
                   <select
                     id="sort"
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
                     className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:ring-[#770504] focus:border-[#770504]"
                   >
-                    <option>Featured</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Customer Rating</option>
-                    <option>Newest</option>
+                    <option value="featured">Featured</option>
+                    <option value="price-low-high">Price: Low to High</option>
+                    <option value="price-high-low">Price: High to Low</option>
+                    <option value="rating">Customer Rating</option>
+                    <option value="newest">Newest</option>
                   </select>
                 </div>
               </div>
@@ -319,7 +333,6 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

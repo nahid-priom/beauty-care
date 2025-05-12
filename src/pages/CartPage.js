@@ -15,8 +15,6 @@ import {
   clearCart,
   removeItemFromCart,
 } from "../redux/features/cart/cartSlice";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -54,8 +52,8 @@ const CartPage = () => {
   if (totalQuantity === 0) {
     return (
       <>
-        <Navbar />
-        <div className="min-h-screen bg-gray-50 py-12">
+       
+        <div className="min-h-screen bg-gray-50 pt-12 lg:pt-20 py-12">
           <div className="container mx-auto px-4">
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">
@@ -73,14 +71,14 @@ const CartPage = () => {
             </div>
           </div>
         </div>
-        <Footer />
+        
       </>
     );
   }
 
   return (
     <>
-      <Navbar />
+     
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="container mx-auto px-4">
           <div className="flex items-center mb-6">
@@ -248,7 +246,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };

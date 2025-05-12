@@ -48,7 +48,7 @@ const ProductCard = ({ product, navigate, handleAddToCart }) => (
           });
         }}
         alt={product.name}
-        className="absolute cursor-pointer top-0 left-0 w-full h-full object-cover"
+        className="absolute cursor-pointer top-0 left-0 w-full h-full object-contain"
         loading="lazy"
       />
       <button className="absolute top-1.5 right-1.5 p-1.5 bg-white/80 rounded-full hover:bg-white transition-colors">

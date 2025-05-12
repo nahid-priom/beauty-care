@@ -56,7 +56,7 @@ const HeroSlider = () => {
   const banners = [banner1, banner2];
 
   return (
-    <section className="container mx-auto pt-2">
+    <section className="container mx-auto pt-12 lg:pt-20">
       <Slider {...settings}>
         {banners.map((banner, index) => (
           <div key={index} className="w-full h-[190px]  sm:h-[400px] lg:h-[500px]">

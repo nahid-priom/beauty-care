@@ -1,26 +1,29 @@
 import HeroSection from "../components/HeroSection";
-import Navbar from "../components/Navbar";
-import FeaturedSection from "../components/Featured";
-import NewArrivals from "../components/NewArrival";
-import Footer from "../components/Footer";
+import FeaturedSection from "../components/FeaturedCategory";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ClientTestimonialsCarousel from "../components/ClientTestmonials";
+import BeautyProducts from "../components/BeautyProducts";
+import GroceryProducts from "../components/GroceryProducts";
+import FurnitureProducts from "../components/FurnittureProducts";
+
 
 const Home = () => {
   return (
     <div className="w-full">
       {/* Page Content */}
-      <Navbar />
+      
       <HeroSection />
 
       <FeaturedSection />
 
-      <NewArrivals />
+      <BeautyProducts/>
+      <GroceryProducts/>
+      <FurnitureProducts/>
       <ClientTestimonialsCarousel/>
      
      
-      <Footer />
+    
     </div>
   );
 };
