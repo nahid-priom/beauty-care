@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import banner1 from '../assets/banner1.png';
-import banner2 from '../assets/banner2.png';
+import banner1 from '../../assets/banner1.png';
+import banner2 from '../../assets/banner2.png';
 
 
 // Custom arrow components

@@ -1,13 +1,7 @@
-import React from "react";
-
-
 import HeroSection from "../components/HeroSection";
 import Navbar from "../components/Navbar";
-import FeaturedSection from "../components/FeaturedSection";
-import NewArrivals from "../components/NewArrivals";
-
-import Subscription from "../components/Subscription"
-
+import FeaturedSection from "../components/Featured";
+import NewArrivals from "../components/NewArrival";
 import Footer from "../components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

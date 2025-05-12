@@ -12,6 +12,7 @@ import {
   faPinterest 
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom'; // ✅ Add this import
 
 const Footer = () => {
   return (
@@ -27,16 +28,17 @@ const Footer = () => {
               We're committed to bringing you the best in cosmetic innovation.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-white/70 transition">
+             
+              <a href="https://facebook.com" className="text-white hover:text-white/70 transition">
                 <FontAwesomeIcon icon={faFacebook} size="lg" />
               </a>
-              <a href="#" className="text-white hover:text-white/70 transition">
+              <a href="https://instagram.com" className="text-white hover:text-white/70 transition">
                 <FontAwesomeIcon icon={faInstagram} size="lg" />
               </a>
-              <a href="#" className="text-white hover:text-white/70 transition">
+              <a href="https://twitter.com" className="text-white hover:text-white/70 transition">
                 <FontAwesomeIcon icon={faTwitter} size="lg" />
               </a>
-              <a href="#" className="text-white hover:text-white/70 transition">
+              <a href="https://pinterest.com" className="text-white hover:text-white/70 transition">
                 <FontAwesomeIcon icon={faPinterest} size="lg" />
               </a>
             </div>
@@ -46,12 +48,12 @@ const Footer = () => {
           <div className="mb-6">
             <h3 className="text-xl font-bold mb-4 border-b border-white/20 pb-2">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition">Home</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Shop</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">About Us</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Blog</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Contact</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">FAQ</a></li>
+              <li><Link to="/" className="text-white/80 hover:text-white transition">Home</Link></li>
+              <li><Link to="/shop" className="text-white/80 hover:text-white transition">Shop</Link></li>
+              <li><Link to="/about" className="text-white/80 hover:text-white transition">About Us</Link></li>
+              <li><Link to="/blog" className="text-white/80 hover:text-white transition">Blog</Link></li>
+              <li><Link to="/contact" className="text-white/80 hover:text-white transition">Contact</Link></li>
+              <li><Link to="/faq" className="text-white/80 hover:text-white transition">FAQ</Link></li>
             </ul>
           </div>
 
@@ -59,12 +61,12 @@ const Footer = () => {
           <div className="mb-6">
             <h3 className="text-xl font-bold mb-4 border-b border-white/20 pb-2">Customer Service</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-white/80 hover:text-white transition">My Account</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Order Tracking</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Wishlist</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Shipping Policy</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Returns & Refunds</a></li>
-              <li><a href="#" className="text-white/80 hover:text-white transition">Privacy Policy</a></li>
+              <li><Link to="/account" className="text-white/80 hover:text-white transition">My Account</Link></li>
+              <li><Link to="/order-tracking" className="text-white/80 hover:text-white transition">Order Tracking</Link></li>
+              <li><Link to="/wishlist" className="text-white/80 hover:text-white transition">Wishlist</Link></li>
+              <li><Link to="/shipping-policy" className="text-white/80 hover:text-white transition">Shipping Policy</Link></li>
+              <li><Link to="/returns" className="text-white/80 hover:text-white transition">Returns & Refunds</Link></li>
+              <li><Link to="/privacy" className="text-white/80 hover:text-white transition">Privacy Policy</Link></li>
             </ul>
           </div>
 
@@ -117,7 +119,6 @@ const Footer = () => {
           <p className="text-white/70 text-sm mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} Beauty Emporium. All rights reserved.
           </p>
-         
         </div>
       </div>
     </footer>

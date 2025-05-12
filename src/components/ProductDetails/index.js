@@ -14,10 +14,10 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../redux/features/cart/cartSlice";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import  ALL_PRODUCTS  from "../data/products";
+import { addItemToCart } from "../../redux/features/cart/cartSlice";
+import Footer from "../Footer";
+import Navbar from "../Navbar";
+import  ALL_PRODUCTS  from "../../data/products";
 
 const ProductDetails = () => {
    const { id } = useParams();

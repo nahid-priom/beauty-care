@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
-import { addItemToCart } from "../redux/features/cart/cartSlice";
+import { addItemToCart } from "../../redux/features/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
 // Custom arrow components
