@@ -1,11 +1,5 @@
 
 import Slider from "react-slick";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
@@ -16,46 +10,26 @@ import { useProducts } from "../../providers/ProductProvider";
 import { addItemToCart } from "../../redux/features/cart/cartSlice";
 import ProductsLoading from "../Preloader";
 import ProductCard from "../ProductCard";
+import NextArrow from "../Button/NextArrow";
+import PrevArrow from "../Button/PreviousArrow";
 
-// Custom arrow components
-const NextArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 text-[#770504] p-2 rounded-full shadow-md hover:bg-white transition-all"
-    aria-label="Next"
-  >
-    <FontAwesomeIcon icon={faChevronRight} className="text-lg" />
-  </button>
-);
-
-const PrevArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 text-[#770504] p-2 rounded-full shadow-md hover:bg-white transition-all"
-    aria-label="Previous"
-  >
-    <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
-  </button>
-);
 
 const GroceryProducts = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products, loading, error } = useProducts();
-
-  // Beauty-related categories
   const Categories = [
    "groceries"
   ];
 
-  // Filter only beauty products (case insensitive)
+
   const GroceryProducts = products.filter((product) =>
     Categories.some((cat) =>
       product.category?.toLowerCase().includes(cat.toLowerCase())
     )
   );
 
-  // Carousel settings with dynamic slide count
+
   const settings = {
     dots: true,
     infinite: GroceryProducts.length > 1,
@@ -104,8 +78,11 @@ const GroceryProducts = () => {
 
 
   const addToCart = (product, e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    if (e) {
+
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     dispatch(
       addItemToCart({

@@ -1,38 +1,18 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChevronLeft,
-  faChevronRight,
   faArrowRight
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductsLoading from "../../components/Preloader";
+import NextArrow from "../Button/NextArrow";
+import PrevArrow from "../Button/PreviousArrow";
 
-// Custom arrow components
-const NextArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 text-[#770504] p-2 rounded-full shadow-md hover:bg-white transition-all"
-    aria-label="Next"
-  >
-    <FontAwesomeIcon icon={faChevronRight} className="text-lg" />
-  </button>
-);
 
-const PrevArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 text-[#770504] p-2 rounded-full shadow-md hover:bg-white transition-all"
-    aria-label="Previous"
-  >
-    <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
-  </button>
-);
 
-// Category images mapping
 const categoryImages = {
   'smartphones': 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
   'laptops': 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
@@ -69,7 +49,7 @@ const FeaturedCategories = () => {
 
   // Carousel settings
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -101,7 +81,7 @@ const FeaturedCategories = () => {
         breakpoint: 640,
         settings: {
           slidesToShow: 2,
-          arrows: false,
+          arrows: true,
           centerMode: true,
           centerPadding: "20px",
         },
