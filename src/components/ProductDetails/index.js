@@ -26,8 +26,8 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [error, setError] = useState(null);
-  console.log(error)
+ 
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -41,7 +41,7 @@ const ProductDetails = () => {
         });
       } catch (err) {
         startTransition(() => {
-          setError(err.message);
+          
           navigate("/not-found", { replace: true });
         });
       } finally {

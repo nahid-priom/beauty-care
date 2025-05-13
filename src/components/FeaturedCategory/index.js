@@ -56,7 +56,7 @@ const FeaturedCategories = () => {
         const response = await fetch('https://dummyjson.com/products/category-list');
         if (!response.ok) throw new Error('Failed to fetch categories');
         const data = await response.json();
-        setCategories(data.slice(0, 5)); // Take first 5 categories
+        setCategories(data.slice(0, 5)); 
       } catch (err) {
         setError(err.message);
       } finally {
@@ -93,14 +93,14 @@ const FeaturedCategories = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           arrows: false,
         },
       },
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           arrows: false,
           centerMode: true,
           centerPadding: "20px",

@@ -4,27 +4,10 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
-      colors: {
-        primary: "#00040f",
-        secondary: "#9333ea",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
-        dimPurple: "rgba(147, 51, 234, 0.1)",
-        purple: {
-          100: "#f3e8ff",
-          200: "#e9d5ff",
-          300: "#d8b4fe",
-          400: "#c084fc",
-          500: "#a855f7",
-          600: "#9333ea",
-          700: "#7e22ce",
-          800: "#6b21a8",
-          900: "#581c87",
-        },
-        gray: {
-          800: "#1f2937",
-          900: "#111827",
-        },
+      animation: {
+        'soft-pulse': 'softPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
+     
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
@@ -36,6 +19,10 @@ module.exports = {
         'fade-delay-6': "fade 6s infinite 4s",
       },
       keyframes: {
+        softPulse: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(0.98)' },
+        },
         underline: {
           "0%": { transform: "scaleX(0)" },
           "100%": { transform: "scaleX(1)" },

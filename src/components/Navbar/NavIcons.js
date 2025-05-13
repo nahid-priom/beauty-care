@@ -1,6 +1,7 @@
 import { faShoppingCart, faBars, faTimes, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import ProfileIcon from "./Profile";
 
 const NavIcons = ({
   totalQuantity,
@@ -12,13 +13,15 @@ const NavIcons = ({
   totalAmount,
 }) => {
   return (
-    <div className="flex items-center space-x-4 lg:space-x-6">
+    <div className="flex items-center space-x-3 lg:space-x-5">
+      
+      {/* Wishlist Icon */}
       <button className="hidden md:block text-gray-700 hover:text-[#770504]">
         <FontAwesomeIcon icon={faHeart} className="text-xl" />
       </button>
-      
-      {/* Cart with Preview */}
-      <div 
+
+      {/* Cart Icon & Preview */}
+      <div
         className="relative"
         onMouseEnter={() => setShowCartPreview(true)}
         onMouseLeave={() => setShowCartPreview(false)}
@@ -32,7 +35,7 @@ const NavIcons = ({
           )}
         </Link>
 
-        {/* Cart Preview */}
+        {/* Cart Preview Dropdown */}
         {showCartPreview && cartItems.length > 0 && (
           <div className="absolute right-0 top-full mt-2 w-72 bg-white rounded shadow-lg border border-gray-200 z-50">
             <div className="p-4 max-h-80 overflow-y-auto">
@@ -69,20 +72,20 @@ const NavIcons = ({
         )}
       </div>
 
-      {/* Mobile menu button */}
+      {/* Profile Icon */}
+      <ProfileIcon />
+
+      {/* Mobile Menu Button */}
       <button
         className="md:hidden flex items-center text-gray-700"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
       >
-        <FontAwesomeIcon
-          icon={isMenuOpen ? faTimes : faBars}
-          className="text-xl"
-        />
+        <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
         <span className="ml-2 font-medium">MENU</span>
       </button>
     </div>
   );
 };
 
-export default NavIcons
+export default NavIcons;

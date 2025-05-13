@@ -13,6 +13,7 @@ import DesktopCategories from "./DesktopCategories";
 import MobileMenu from "./MobileMenu";
 import ProductsLoading from "../../components/Preloader";
 
+
 const Navbar = () => {
   const { products, loading, error } = useProducts();
   const location = useLocation();
@@ -201,6 +202,7 @@ const Navbar = () => {
                 cartItems={cartItems}
                 totalAmount={totalAmount}
               />
+             
             </div>
 
             <DesktopCategories
