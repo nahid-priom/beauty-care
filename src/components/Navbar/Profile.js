@@ -1,24 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const ProfileIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [user, setUser] = useState(null); // Local state for auth
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  // Simulated auth check (replace with context or real auth later)
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user")); // or use sessionStorage
-    setUser(storedUser);
-  }, []);
-
+ 
   const handleLogin = () => navigate("/login");
   const handleProfile = () => navigate("/profile");
   const handleLogout = () => {
     localStorage.removeItem("user");
-    setUser(null);
+    
     navigate("/");
   };
 

@@ -1,26 +1,22 @@
-
 import Slider from "react-slick";
-
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useProducts } from "../../providers/ProductProvider";
+
 import { addItemToCart } from "../../redux/features/cart/cartSlice";
 import ProductsLoading from "../Preloader";
 import ProductCard from "../ProductCard";
 import NextArrow from "../Button/NextArrow";
 import PrevArrow from "../Button/PreviousArrow";
-
-
+import { useProducts } from "../../providers/ProductProvider";
 
 const BeautyProducts = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, loading, error } = useProducts();
-
+  const { products = [], loading, error } = useProducts(); // Added default value
 
   const beautyCategories = [
     "skincare",
@@ -31,13 +27,14 @@ const BeautyProducts = () => {
     "personal-care",
   ];
 
-
-  const beautyProducts = products.filter((product) =>
-    beautyCategories.some((cat) =>
-      product.category?.toLowerCase().includes(cat.toLowerCase())
-    )
-  );
-
+  // Added null check for products
+  const beautyProducts = products?.length > 0 
+    ? products.filter((product) =>
+        beautyCategories.some((cat) =>
+          product.category?.toLowerCase().includes(cat.toLowerCase())
+        )
+      )
+    : [];
 
   const settings = {
     dots: false,
@@ -84,11 +81,8 @@ const BeautyProducts = () => {
     ],
   };
 
-
-
   const addToCart = (product, e) => {
-  if (e) {
-
+    if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -110,20 +104,8 @@ const BeautyProducts = () => {
   };
 
   if (loading) return <ProductsLoading />;
-  if (error)
-    return <div className="text-red-500 text-center py-12">Error: {error}</div>;
-  if (beautyProducts.length === 0)
-    return (
-      <div className="text-center py-12">
-        <h3 className="text-xl text-[#770504] mb-2">
-          No Beauty Products Available
-        </h3>
-        <p className="text-gray-600">
-          Check back later for our beauty collection
-        </p>
-      </div>
-    );
-
+  if (error) return <div className="text-red-500 text-center py-12">Error: {error}</div>;
+  
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
@@ -136,18 +118,29 @@ const BeautyProducts = () => {
           </p>
         </div>
 
-        <div className="relative">
-          <Slider {...settings}>
-            {beautyProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                navigate={navigate}
-                handleAddToCart={addToCart}
-              />
-            ))}
-          </Slider>
-        </div>
+        {beautyProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <h3 className="text-xl text-[#770504] mb-2">
+              No Beauty Products Available
+            </h3>
+            <p className="text-gray-600">
+              Check back later for our beauty collection
+            </p>
+          </div>
+        ) : (
+          <div className="relative">
+            <Slider {...settings}>
+              {beautyProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  navigate={navigate}
+                  handleAddToCart={addToCart}
+                />
+              ))}
+            </Slider>
+          </div>
+        )}
       </div>
     </section>
   );

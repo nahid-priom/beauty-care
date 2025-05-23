@@ -6,12 +6,12 @@ const Preloader = () => {
       <img 
         src={Logo} 
         alt="Loading..." 
-        className="w-40 h-20 lg:w-60 lg:h-30 mb-8 animate-soft-pulse"
+        className="w-40 h-24 lg:w-60 lg:h-32 mb-8 animate-soft-pulse"
       />
       
       <div className="flex items-center space-x-4">
         <div 
-          className="w-8 h-8 border-4 border-[#770504] border-t-transparent rounded-full animate-spin"
+          className="w-10 h-10 border-4 border-[#770504] border-t-transparent rounded-full animate-spin"
           style={{ animationDuration: "0.8s" }}
         ></div>
         

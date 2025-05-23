@@ -24,7 +24,6 @@ const Navbar = () => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-  // Search functionality
   const { searchQuery, setSearchQuery, searchSuggestions } = useSearch(
     products || []
   );

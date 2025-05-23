@@ -10,20 +10,13 @@ import FurnitureProducts from "../components/FurnittureProducts";
 
 const Home = () => {
   return (
-    <div className="w-full">
-      {/* Page Content */}
-      
+    <div className="w-full">  
       <HeroSection />
-
       <FeaturedSection />
-
       <BeautyProducts/>
       <GroceryProducts/>
       <FurnitureProducts/>
-      <ClientTestimonialsCarousel/>
-     
-     
-    
+      <ClientTestimonialsCarousel/>  
     </div>
   );
 };

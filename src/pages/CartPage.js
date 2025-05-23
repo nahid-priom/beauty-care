@@ -96,24 +96,20 @@ const CartPage = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Cart Items - 2/3 width on desktop */}
             <div className="w-full lg:w-2/3">
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                {/* Cart Header - Desktop only */}
                 <div className="hidden md:grid grid-cols-12 bg-gray-100 p-4 font-medium text-gray-600">
                   <div className="col-span-5">Product</div>
                   <div className="col-span-2 text-center">Price</div>
                   <div className="col-span-3 text-center">Quantity</div>
                   <div className="col-span-2 text-right">Total</div>
                 </div>
-
-                {/* Cart Items */}
                 {items.map((item) => (
                   <div
                     key={item.id}
                     className="grid grid-cols-1 md:grid-cols-12 p-4 border-b border-gray-200 gap-4 md:gap-0"
                   >
-                    {/* Product Info - Full width on mobile */}
+                    
                     <div className="md:col-span-5 flex items-start md:items-center">
                       <img
                         src={item.image}
@@ -124,7 +120,7 @@ const CartPage = () => {
                         <h3 className="font-medium text-gray-800">
                           {item.name}
                         </h3>
-                        {/* Mobile Price */}
+                        
                         <div className="md:hidden flex justify-between items-center mt-2">
                           <span className="text-gray-600">
                             ${item.price.toFixed(2)}
@@ -143,12 +139,12 @@ const CartPage = () => {
                       </div>
                     </div>
 
-                    {/* Price - Hidden on mobile */}
+                  
                     <div className="hidden  md:col-span-3 md:flex items-center text-center text-gray-600">
                       ${item.price.toFixed(2)}
                     </div>
 
-                    {/* Quantity */}
+                   
                     <div className="md:col-span-2 flex justify-between md:justify-center items-center">
                       <span className="md:hidden text-gray-600">
                         Quantity:
@@ -176,14 +172,14 @@ const CartPage = () => {
                       </div>
                     </div>
 
-                    {/* Total - Hidden on mobile */}
+                  
                     <div className="hidden  md:flex justify-end items-center text-center text-gray-800">
                       ${(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>
                 ))}
 
-                {/* Clear Cart */}
+              
                 <div className="p-4 text-right">
                   <button
                     onClick={handleClearCart}
@@ -195,7 +191,7 @@ const CartPage = () => {
               </div>
             </div>
 
-            {/* Order Summary - 1/3 width on desktop */}
+           
             <div className="w-full lg:w-1/3">
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
                 <h2 className="text-xl font-bold text-gray-800 mb-4">

@@ -1,4 +1,4 @@
-// src/hooks/useSearch.js
+
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 
 export const useSearch = (products = []) => {
@@ -8,18 +8,16 @@ export const useSearch = (products = []) => {
   const prevQueryRef = useRef('');
 
   const filteredResults = useMemo(() => {
-    // Skip if query hasn't changed
     if (prevQueryRef.current === searchQuery) {
       return searchSuggestions;
     }
 
-    // Validate products array
     if (!Array.isArray(products)) {
       console.error('useSearch: products must be an array');
       return [];
     }
 
-    // Skip if query is too short
+
     if (searchQuery.trim().length < 3) {
       return [];
     }
@@ -31,8 +29,7 @@ export const useSearch = (products = []) => {
         return productName.includes(query);
       })
       .slice(0, 5);
-  }, [searchQuery, products, searchSuggestions]); // Added searchSuggestions to dependencies
-
+  }, [searchQuery, products, searchSuggestions]); 
   const updateSuggestions = useCallback(() => {
     if (JSON.stringify(filteredResults) !== JSON.stringify(searchSuggestions)) {
       setSearchSuggestions(filteredResults);
@@ -41,16 +38,16 @@ export const useSearch = (products = []) => {
   }, [filteredResults, searchSuggestions, searchQuery]);
 
   useEffect(() => {
-    // Clear previous timeout
+
     clearTimeout(timeoutRef.current);
 
-    // Only set new timeout if we have actual changes
+
     timeoutRef.current = setTimeout(updateSuggestions, 200);
 
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [updateSuggestions]); // Now depends on the stable updateSuggestions callback
+  }, [updateSuggestions]);
 
   const stableSetSearchQuery = useCallback((value) => {
     const newValue = String(value || '');

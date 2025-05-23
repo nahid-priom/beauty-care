@@ -1,13 +1,19 @@
-// src/providers/ProductsProvider.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import { fetchProducts } from '../services/ProductsApi';
 
-const ProductsContext = createContext();
+// Create context with default value
+const ProductsContext = createContext({
+  products: [],
+  loading: true,
+  error: null
+});
 
 export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, setState] = useState({
+    products: [],
+    loading: true,
+    error: null
+  });
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,11 +30,18 @@ export const ProductsProvider = ({ children }) => {
           image: product.thumbnail,
           inStock: product.stock > 0,
         }));
-        setProducts(transformedProducts);
+        
+        setState({
+          products: transformedProducts,
+          loading: false,
+          error: null
+        });
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        setState({
+          products: [],
+          loading: false,
+          error: err.message
+        });
       }
     };
 
@@ -36,16 +49,22 @@ export const ProductsProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductsContext.Provider value={{ products, loading, error }}>
+    <ProductsContext.Provider value={state}>
       {children}
     </ProductsContext.Provider>
   );
 };
 
+
 export const useProducts = () => {
   const context = useContext(ProductsContext);
-  if (!context) {
-    throw new Error('useProducts must be used within a ProductsProvider');
+  
+  if (context === undefined) {
+    throw new Error(
+      'useProducts must be used within a ProductsProvider. ' +
+      'Make sure you have wrapped your component or App with <ProductsProvider>.'
+    );
   }
+  
   return context;
 };

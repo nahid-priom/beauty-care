@@ -1,7 +1,7 @@
 // src/components/CategoryList.jsx
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import ProductsLoading from '../Preloader';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import ProductsLoading from "../Preloader";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -9,32 +9,36 @@ const CategoryList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const FetchCategories = async () => {
       try {
-        const response = await fetch('https://dummyjson.com/products/category-list');
+        const response = await fetch(
+          "https://dummyjson.com/products/category-list"
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch categories');
+          throw new Error("Error fetch categories");
         }
         const data = await response.json();
         setCategories(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchCategories();
+    FetchCategories();
   }, []);
 
   if (loading) return <ProductsLoading />;
-  if (error) return <div className="text-red-500 text-center py-8">Error: {error}</div>;
+  if (error)
+    return <div className="text-red-500 text-center py-8">Error: {error}</div>;
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Shop by Category</h2>
-        
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          Shop by Category
+        </h2>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
             <Link
@@ -47,7 +51,7 @@ const CategoryList = () => {
                   <span className="text-2xl">📦</span> {/* Placeholder icon */}
                 </div>
                 <h3 className="font-medium text-gray-900 group-hover:text-white capitalize">
-                  {category.replace(/-/g, ' ')}
+                  {category.replace(/-/g, " ")}
                 </h3>
               </div>
             </Link>

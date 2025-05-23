@@ -105,7 +105,7 @@ const ProductsPage = () => {
       return true;
     });
 
-    // Sorting logic
+  
     switch(sortOption) {
       case "price-low-high":
         result.sort((a, b) => (a.discountPrice ?? a.price) - (b.discountPrice ?? b.price));
@@ -117,11 +117,10 @@ const ProductsPage = () => {
         result.sort((a, b) => b.rating - a.rating);
         break;
       case "newest":
-        // Assuming newer products have higher IDs - adjust as needed
         result.sort((a, b) => b.id - a.id);
         break;
-      default: // "featured" or any other option
-        // Keep original order
+      default: 
+       
         break;
     }
 
@@ -185,7 +184,7 @@ const ProductsPage = () => {
   };
 
   if (loading) {
-    return <ProductsLoading />; // Use your preloader component
+    return <ProductsLoading />; 
   }
 
   if (error) {
@@ -279,7 +278,7 @@ const ProductsPage = () => {
               </div>
 
               {/* Products grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {filteredProducts.map((product) => (
                   <ProductCard 
                     key={product.id} 

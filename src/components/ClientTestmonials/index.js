@@ -1,69 +1,14 @@
-import React from 'react';
 import Slider from 'react-slick';
-import { faQuoteLeft, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-// Testimonial data
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    role: 'Beauty Blogger',
-    content: 'The skincare products transformed my routine. My skin has never looked better! The results were visible within just two weeks of regular use.',
-    rating: 5,
-    image: 'https://randomuser.me/api/portraits/women/43.jpg'
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    role: 'Makeup Artist',
-    content: 'As a professional, I demand high-quality cosmetics. This brand exceeds my expectations with their pigmentation. Highly recommended!',
-    rating: 4,
-    image: 'https://randomuser.me/api/portraits/men/32.jpg'
-  },
-  {
-    id: 3,
-    name: 'Emily Rodriguez',
-    role: 'Salon Owner',
-    content: 'My clients absolutely love the hair care line. The products deliver what they promise - shiny, healthy hair with every use. A game-changer!',
-    rating: 5,
-    image: 'https://randomuser.me/api/portraits/women/65.jpg'
-  },
-  {
-    id: 4,
-    name: 'David Wilson',
-    role: 'Grooming Specialist',
-    content: 'The men\'s line is exceptional. Finally products that understand male skin needs without overpowering scents. Will definitely repurchase.',
-    rating: 5,
-    image: 'https://randomuser.me/api/portraits/men/75.jpg'
-  }
-];
-
-// Custom arrow components
-const NextArrow = ({ onClick }) => (
-  <button 
-    onClick={onClick}
-    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-white text-[#770504] p-2 rounded-full shadow-lg hover:bg-[#f8f8f8] transition-all"
-    aria-label="Next testimonial"
-  >
-    <FontAwesomeIcon icon={faChevronRight} className="text-lg" />
-  </button>
-);
-
-const PrevArrow = ({ onClick }) => (
-  <button 
-    onClick={onClick}
-    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-white text-[#770504] p-2 rounded-full shadow-lg hover:bg-[#f8f8f8] transition-all"
-    aria-label="Previous testimonial"
-  >
-    <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
-  </button>
-);
+import NextArrow from '../Button/NextArrow';
+import PrevArrow from '../Button/PreviousArrow';
+import { testimonials } from '../../data/constant';
 
 const Testimonials = () => {
-  // Carousel settings
+  
   const settings = {
     dots: true,
     infinite: true,

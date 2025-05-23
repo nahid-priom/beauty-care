@@ -79,12 +79,12 @@ const CheckoutPage = () => {
     (opt) => opt.id === deliveryOption
   );
   const deliveryCharge = selectedDelivery ? selectedDelivery.cost : 0;
-  const tax = totalAmount * 0.1; // 10% tax
+  const tax = totalAmount * 0.1; 
   const grandTotal = totalAmount + deliveryCharge + tax;
 
   const handleSubmitOrder = (e) => {
     e.preventDefault();
-    // Process order logic here
+    
     navigate("/order-confirmation");
   };
 
@@ -135,9 +135,9 @@ const CheckoutPage = () => {
 
           <form onSubmit={handleSubmitOrder}>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Left Column - Shipping and Payment */}
+              
               <div className="lg:col-span-2 space-y-6">
-                {/* Shipping Address */}
+                
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h2 className="text-xl font-bold text-gray-800 mb-4">
                     <FontAwesomeIcon
@@ -239,7 +239,7 @@ const CheckoutPage = () => {
                     ))}
                   </div>
 
-                  {/* Payment Form (would show based on selected method) */}
+                
                   {paymentMethod === "credit-card" && (
                     <div className="mt-6 space-y-4">
                       <div>
@@ -282,7 +282,7 @@ const CheckoutPage = () => {
                 </div>
               </div>
 
-              {/* Right Column - Order Summary */}
+             
               <div className="lg:col-span-1">
                 <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
                   <h2 className="text-xl font-bold text-gray-800 mb-4">
@@ -318,7 +318,7 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  {/* Delivery Date Estimate */}
+                 
                   {selectedDelivery && (
                     <div className="mb-6 p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center text-gray-700">
