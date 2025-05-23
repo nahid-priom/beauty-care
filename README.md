@@ -1,1 +1,1 @@
-Live Link: https://phone-spot-react.vercel.app
+Live Link: https://beauty-care-five.vercel.app/
