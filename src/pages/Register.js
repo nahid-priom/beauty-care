@@ -1,8 +1,6 @@
-// src/pages/Register.js
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
 import { toast } from 'react-toastify';
 import { registerUser } from '../redux/features/auth/AuthSlice';
 
@@ -24,7 +22,6 @@ const Register = () => {
       ...formData,
       [name]: value,
     });
-    // Clear error when user types
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -68,13 +65,25 @@ const Register = () => {
       }));
       
       if (registerUser.fulfilled.match(resultAction)) {
-        toast.success('Registration successful! Please login.');
-        navigate('/login');
+        toast.success('Registration successful! You are now logged in.');
+        navigate('/');
       } else {
-        toast.error(resultAction.payload || 'Registration failed');
+        // Handle Firebase errors
+        const errorMessage = resultAction.payload;
+        let userFriendlyError = 'Registration failed';
+        
+        if (errorMessage.includes('auth/email-already-in-use')) {
+          userFriendlyError = 'Email already in use';
+        } else if (errorMessage.includes('auth/weak-password')) {
+          userFriendlyError = 'Password should be at least 6 characters';
+        } else if (errorMessage.includes('auth/invalid-email')) {
+          userFriendlyError = 'Invalid email address';
+        }
+        
+        toast.error(userFriendlyError);
       }
     } catch (error) {
-      toast.error('An error occurred during registration');
+      toast.error('An unexpected error occurred');
     } finally {
       setIsSubmitting(false);
     }

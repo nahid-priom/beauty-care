@@ -1,20 +1,22 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/features/auth/AuthSlice";
+import { persistor } from "../../redux/store";
 
 const ProfileIcon = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
- 
   const handleLogin = () => navigate("/login");
   const handleProfile = () => navigate("/profile");
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    
+  const handleLogout = async () => {
+    dispatch(logout());
+    await persistor.flush();
     navigate("/");
   };
 

@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Preloader from "./components/Preloader";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AuthListener from "./AuthListener";
 
 // Lazy load components
 const Home = lazy(() => import("./pages/Home"));
@@ -42,7 +43,7 @@ const App = () => {
                     pauseOnHover
                     theme="light"
                   />
-
+                  <AuthListener />
                   {/* Main App Structure */}
                   <Routes>
                     <Route path="/login" element={<Login />} />
